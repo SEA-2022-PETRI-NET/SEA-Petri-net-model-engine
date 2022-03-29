@@ -13,6 +13,8 @@
 x64/
 [Bb]in/
 [Oo]bj/
+PetriNetEngine/PetriNetEngine/[Oo]bj/
+PetriNetEngine/PetriNetEngine/[Bb]in//
 
 # MSTest test Results
 [Tt]est[Rr]esult*/
@@ -131,3 +133,6 @@ $RECYCLE.BIN/
 .DS_Store
 
 _NCrunch*
+
+.idea/
+.vscode/
