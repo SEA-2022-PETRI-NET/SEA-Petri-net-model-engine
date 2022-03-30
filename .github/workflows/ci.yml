@@ -1,0 +1,22 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v1
+
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v2.0.0
+      with:
+        dotnet-version: '6.x.x'
+
+    - name: Build the app
+      run: |
+        cd PetriNetEngine
+        dotnet build

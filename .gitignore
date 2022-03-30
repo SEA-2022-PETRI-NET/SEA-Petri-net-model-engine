@@ -11,10 +11,8 @@
 [Dd]ebug/
 [Rr]elease/
 x64/
-[Bb]in/
-[Oo]bj/
-PetriNetEngine/PetriNetEngine/[Oo]bj/
-PetriNetEngine/PetriNetEngine/[Bb]in//
+**/[Bb]in/
+**/[Oo]bj/
 
 # MSTest test Results
 [Tt]est[Rr]esult*/
@@ -134,5 +132,5 @@ $RECYCLE.BIN/
 
 _NCrunch*
 
-.idea/
-.vscode/
+**/.idea/
+**/.vscode/
