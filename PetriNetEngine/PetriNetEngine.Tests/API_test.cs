@@ -8,7 +8,6 @@ namespace PetriNetEngine.Tests;
 
 public class API_test
 {
-
     [Fact]
     public async Task GET_modelling()
     {
@@ -18,7 +17,7 @@ public class API_test
 
          var client = application.CreateClient();
 
-        var response = await client.GetAsync("/Modelling");
+        var response = await client.GetAsync("api/v1/Model");
         Assert.True(response.IsSuccessStatusCode);
     }
 }
