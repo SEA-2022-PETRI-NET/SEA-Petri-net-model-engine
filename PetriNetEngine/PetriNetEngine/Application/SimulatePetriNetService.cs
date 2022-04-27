@@ -14,31 +14,31 @@ public class SimulatePetriNetService
 
     public List<int> GetEnabledTransitions(int petriNetId)
     {
-        PetriNet? petriNet = _repository.GetPetriNet(petriNetId);
+        var petriNet = _repository.GetPetriNet(petriNetId);
         if (petriNet == null)
         {
             throw new BadHttpRequestException("Invalid petri net id");
         }
         
-        List<int> enabledTransitionIds = new List<int>();
+        var enabledTransitionIds = new List<int>();
         petriNet.Transitions.ForEach(t =>
+        {
+            var inputPlacesIds =
+                petriNet.Arcs.Where(a => a.TargetNode == t.TransitionId).Select(a => a.SourceNode).ToList();
+            var inputPlaces = petriNet.Places.Where(p => inputPlacesIds
+                .Exists(p1 => p1 == p.PlaceId)).ToList();
+            
+            if (inputPlaces.All(p => p.NumberOfTokens >= 1))
             {
-                List<int> inputPlacesIds =
-                    petriNet.Arcs.Where(a => a.TargetNode == t.TransitionId).Select(a => a.SourceNode).ToList();
-                List<Place> inputPlaces = petriNet.Places.Where(p => inputPlacesIds
-                    .Exists(p1 => p1 == p.PlaceId)).ToList();
-                
-                if (inputPlaces.All(p => p.NumberOfTokens >= 1))
-                {
-                    enabledTransitionIds.Add(t.TransitionId);
-                }
-            });
+                enabledTransitionIds.Add(t.TransitionId);
+            }
+        });
         return enabledTransitionIds;
     }
 
     public void FireTransition(int petriNetId, int transitionId)
     {
-        PetriNet? petriNet = _repository.GetPetriNet(petriNetId);
+        var petriNet = _repository.GetPetriNet(petriNetId);
         if (petriNet == null)
         {
             throw new BadHttpRequestException("Invalid petri net id");
@@ -49,8 +49,8 @@ public class SimulatePetriNetService
             throw new BadHttpRequestException("Invalid transition id");
         }
 
-        List<int> outputPlacesIds = new List<int>();
-        List<int> inputPlacesIds = new List<int>();
+        var outputPlacesIds = new List<int>();
+        var inputPlacesIds = new List<int>();
         petriNet.Arcs.ForEach(a =>
         {
             if (a.TargetNode == transitionId)

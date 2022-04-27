@@ -26,14 +26,14 @@ public class ModelPetriNetService
 
     public int CreateNetPetriNet(PetriNet petriNetDto)
     {
-        PetriNet petriNet = new PetriNet
+        var petriNet = new PetriNet
         {
             Name = petriNetDto.Name,
             Arcs = petriNetDto.Arcs,
             Places = petriNetDto.Places,
             Transitions = petriNetDto.Transitions,
         };
-        _validatePetriNetService.validate(petriNet);
+        _validatePetriNetService.Validate(petriNet);
         return _repository.Save(petriNet);
     }
 
