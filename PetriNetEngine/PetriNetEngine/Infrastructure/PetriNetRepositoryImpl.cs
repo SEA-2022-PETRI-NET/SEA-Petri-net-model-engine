@@ -33,14 +33,14 @@ public class PetriNetRepositoryImpl : IPetriNetRepository
 
     public int Save(PetriNet petriNet)
     {
-        EntityEntry<PetriNet> storedPetriNet = _petriNetContext.PetriNets.Add(petriNet);
+        var storedPetriNet = _petriNetContext.PetriNets.Add(petriNet);
         _petriNetContext.SaveChanges();
         return storedPetriNet.Entity.Id;
     }
 
     public void UpdatePetriNet(PetriNet petriNet)
     {
-        PetriNet? storedPetriNet = _petriNetContext.PetriNets
+        var storedPetriNet = _petriNetContext.PetriNets
             .Include(p => p.Places)
             .Include(p => p.Transitions)
             .Include(p => p.Arcs)
