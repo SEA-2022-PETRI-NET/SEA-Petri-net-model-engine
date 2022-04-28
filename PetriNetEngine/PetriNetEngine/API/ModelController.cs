@@ -22,22 +22,32 @@ public class ModelController : ControllerBase
     }
 
     [HttpGet("{id}", Name = "GetPetriNet")]
-    public PetriNet? Get(int id)
+    [ProducesResponseType(typeof(PetriNet), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public IActionResult Get(int id)
     {
-        return _modelPetriNetService.GetPetriNet(id);
+        var petriNet = _modelPetriNetService.GetPetriNet(id);
+        return petriNet == null ? NotFound() : Ok(petriNet);
     }
     
     [HttpPost(Name = "CreatePetriNet")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public int Create(PetriNet petriNet)
+    public IActionResult Create(PetriNet petriNet)
     {
-        return _modelPetriNetService.CreateNetPetriNet(petriNet);
+        int petriNetId = _modelPetriNetService.CreateNetPetriNet(petriNet);
+        return CreatedAtAction(nameof(Get), new { id = petriNetId }, petriNet);
     }
     
     [HttpDelete("{id}", Name = "DeletePetriNet")]
-    public async void Delete(int id)
-    {   
-        _modelPetriNetService.DeletePetriNet(id);
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public IActionResult Delete(int id)
+    {
+        if (!_modelPetriNetService.DeletePetriNet(id))
+        {
+            return NotFound();
+        }
+        return NoContent();
     }
 }

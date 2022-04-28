@@ -81,8 +81,11 @@ public class SimulatePetriNetService
                 p.NumberOfTokens = p.NumberOfTokens == null ? 1 : p.NumberOfTokens.Value + 1;
             }
         });
-        
-        _repository.UpdatePetriNet(petriNet);
+
+        if (!_repository.UpdatePetriNet(petriNet))
+        {
+            throw new BadHttpRequestException("Invalid petri net id");
+        }
     }
 
 

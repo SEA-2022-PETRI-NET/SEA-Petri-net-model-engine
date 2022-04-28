@@ -15,14 +15,20 @@ public class SimulationController : ControllerBase
     }
     
     [HttpGet( "{petriNetId}", Name = "GetEnabledTransitions")]
-    public List<int> GetEnabledTransitions(int petriNetId)
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(List<int>), StatusCodes.Status200OK)]
+    public IActionResult GetEnabledTransitions(int petriNetId)
     {
-        return _simulatePetriNetService.GetEnabledTransitions(petriNetId);
+        var transitions = _simulatePetriNetService.GetEnabledTransitions(petriNetId);
+        return Ok(transitions);
     }
     
-    [HttpPost( "{petriNetId}/{transitionId}", Name = "FireTransition")]
-    public void FireTransition(int petriNetId, int transitionId)
+    [HttpPut( "{petriNetId}/{transitionId}", Name = "FireTransition")]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public IActionResult FireTransition(int petriNetId, int transitionId)
     {
         _simulatePetriNetService.FireTransition(petriNetId, transitionId);
+        return Ok();
     }
 }

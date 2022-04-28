@@ -2,11 +2,15 @@ using Microsoft.EntityFrameworkCore;
 using PetriNetEngine.Application;
 using PetriNetEngine.Domain.Services;
 using PetriNetEngine.Infrastructure;
+using PetriNetEngine.TBD.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<HttpResponseExceptionFilter>();
+});
 
 builder.Services.AddScoped<ValidatePetriNetService, ValidatePetriNetService>();
 builder.Services.AddScoped<SimulatePetriNetService, SimulatePetriNetService>();

@@ -37,8 +37,8 @@ public class ModelPetriNetService
         return _repository.Save(petriNet);
     }
 
-    public void DeletePetriNet(int id)
+    public bool DeletePetriNet(int id)
     {
-        _repository.Delete(id);
+        return _repository.Delete(id);
     }
 }
