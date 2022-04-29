@@ -31,7 +31,7 @@ public class ModelController : ControllerBase
     }
     
     [HttpPost(Name = "CreatePetriNet")]
-    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(PetriNet), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public IActionResult Create(PetriNet petriNet)
     {

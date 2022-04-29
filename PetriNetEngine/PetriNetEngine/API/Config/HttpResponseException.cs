@@ -1,6 +1,6 @@
 using System.Net;
 
-namespace PetriNetEngine.TBD.Exceptions; 
+namespace PetriNetEngine.API.Config; 
 
 // From https://docs.microsoft.com/en-us/aspnet/core/web-api/handle-errors?view=aspnetcore-6.0
 // Allows methods outside of Controllers to set the HTTP response (status code)

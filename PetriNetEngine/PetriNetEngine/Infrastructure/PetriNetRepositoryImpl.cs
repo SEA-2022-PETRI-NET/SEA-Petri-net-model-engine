@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using PetriNetEngine.Domain.Services;
 using PetriNetEngine.Domain.Model;
-using PetriNetEngine.TBD.Exceptions;
 
 namespace PetriNetEngine.Infrastructure;
 

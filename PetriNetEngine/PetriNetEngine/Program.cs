@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using PetriNetEngine.Application;
 using PetriNetEngine.Domain.Services;
 using PetriNetEngine.Infrastructure;
-using PetriNetEngine.TBD.Filters;
+using PetriNetEngine.API.Config;
 
 var builder = WebApplication.CreateBuilder(args);
 
