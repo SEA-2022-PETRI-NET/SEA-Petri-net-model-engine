@@ -35,8 +35,8 @@ public class ModelController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public IActionResult Create(PetriNet petriNet)
     {
-        int petriNetId = _modelPetriNetService.CreateNetPetriNet(petriNet);
-        return CreatedAtAction(nameof(Get), new { id = petriNetId }, petriNet);
+        var createdNet = _modelPetriNetService.CreateNetPetriNet(petriNet);
+        return CreatedAtAction(nameof(Get), new { id = createdNet.Id }, createdNet);
     }
     
     [HttpDelete("{id}", Name = "DeletePetriNet")]

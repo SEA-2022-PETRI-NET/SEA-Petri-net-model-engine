@@ -24,7 +24,7 @@ public class ModelPetriNetService
         return _repository.GetPetriNet(id);
     }
 
-    public int CreateNetPetriNet(PetriNet petriNetDto)
+    public PetriNet CreateNetPetriNet(PetriNet petriNetDto)
     {
         var petriNet = new PetriNet
         {

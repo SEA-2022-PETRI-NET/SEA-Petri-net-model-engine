@@ -32,11 +32,11 @@ public class PetriNetRepositoryImpl : IPetriNetRepository
             .FirstOrDefault(p => p.Id == id);
     }
 
-    public int Save(PetriNet petriNet)
+    public PetriNet Save(PetriNet petriNet)
     {
         var storedPetriNet = _petriNetContext.PetriNets.Add(petriNet);
         _petriNetContext.SaveChanges();
-        return storedPetriNet.Entity.Id;
+        return storedPetriNet.Entity;
     }
 
     public bool UpdatePetriNet(PetriNet petriNet)
