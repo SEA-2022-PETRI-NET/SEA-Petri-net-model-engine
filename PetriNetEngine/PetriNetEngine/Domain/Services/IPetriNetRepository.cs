@@ -8,9 +8,9 @@ public interface IPetriNetRepository
 
     PetriNet? GetPetriNet(int id);
     
-    int Save(PetriNet petriNet);
+    PetriNet Save(PetriNet petriNet);
 
-    void Delete(int id);
+    bool Delete(int id);
 
-    public void UpdatePetriNet(PetriNet petriNet);
+    bool UpdatePetriNet(PetriNet petriNet);
 }
