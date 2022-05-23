@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using PetriNetEngine.Domain.Model;
+using SEA_Models.Model;
 
 namespace PetriNetEngine.Infrastructure;
 

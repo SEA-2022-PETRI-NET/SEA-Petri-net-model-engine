@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using PetriNetEngine.Application;
-using PetriNetEngine.Domain.Model;
+using SEA_Models.Model;
 
 namespace PetriNetEngine.API;
 

@@ -24,7 +24,7 @@ namespace PetriNetEngine.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("PetriNetEngine.Domain.Model.Arc", b =>
+            modelBuilder.Entity("SEA_Models.Model.Arc", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -48,7 +48,7 @@ namespace PetriNetEngine.Migrations
                     b.ToTable("Arcs");
                 });
 
-            modelBuilder.Entity("PetriNetEngine.Domain.Model.PetriNet", b =>
+            modelBuilder.Entity("SEA_Models.Model.PetriNet", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -65,7 +65,7 @@ namespace PetriNetEngine.Migrations
                     b.ToTable("PetriNets");
                 });
 
-            modelBuilder.Entity("PetriNetEngine.Domain.Model.Place", b =>
+            modelBuilder.Entity("SEA_Models.Model.Place", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -92,7 +92,7 @@ namespace PetriNetEngine.Migrations
                     b.ToTable("Places");
                 });
 
-            modelBuilder.Entity("PetriNetEngine.Domain.Model.Transition", b =>
+            modelBuilder.Entity("SEA_Models.Model.Transition", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -116,34 +116,34 @@ namespace PetriNetEngine.Migrations
                     b.ToTable("Transitions");
                 });
 
-            modelBuilder.Entity("PetriNetEngine.Domain.Model.Arc", b =>
+            modelBuilder.Entity("SEA_Models.Model.Arc", b =>
                 {
-                    b.HasOne("PetriNetEngine.Domain.Model.PetriNet", "PetriNet")
+                    b.HasOne("SEA_Models.Model.PetriNet", "PetriNet")
                         .WithMany("Arcs")
                         .HasForeignKey("PetriNetId");
 
                     b.Navigation("PetriNet");
                 });
 
-            modelBuilder.Entity("PetriNetEngine.Domain.Model.Place", b =>
+            modelBuilder.Entity("SEA_Models.Model.Place", b =>
                 {
-                    b.HasOne("PetriNetEngine.Domain.Model.PetriNet", "PetriNet")
+                    b.HasOne("SEA_Models.Model.PetriNet", "PetriNet")
                         .WithMany("Places")
                         .HasForeignKey("PetriNetId");
 
                     b.Navigation("PetriNet");
                 });
 
-            modelBuilder.Entity("PetriNetEngine.Domain.Model.Transition", b =>
+            modelBuilder.Entity("SEA_Models.Model.Transition", b =>
                 {
-                    b.HasOne("PetriNetEngine.Domain.Model.PetriNet", "PetriNet")
+                    b.HasOne("SEA_Models.Model.PetriNet", "PetriNet")
                         .WithMany("Transitions")
                         .HasForeignKey("PetriNetId");
 
                     b.Navigation("PetriNet");
                 });
 
-            modelBuilder.Entity("PetriNetEngine.Domain.Model.PetriNet", b =>
+            modelBuilder.Entity("SEA_Models.Model.PetriNet", b =>
                 {
                     b.Navigation("Arcs");
 
