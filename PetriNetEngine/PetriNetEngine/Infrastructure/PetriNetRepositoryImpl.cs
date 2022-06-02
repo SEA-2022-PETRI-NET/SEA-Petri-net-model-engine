@@ -2,7 +2,7 @@ using System.Net;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using PetriNetEngine.Domain.Services;
-using PetriNetEngine.Domain.Model;
+using SEA_Models.Domain.Model.PetriNet;
 
 namespace PetriNetEngine.Infrastructure;
 
