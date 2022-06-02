@@ -1,4 +1,4 @@
-using SEA_Models.Model;
+using SEA_Models.Domain.Model.PetriNet;
 using PetriNetEngine.Domain.Services;
 
 namespace PetriNetEngine.Application;
