@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using SEA_Models.Domain.Model.PetriNet;
+using SEA_Models.PetriNet;
 
 namespace PetriNetEngine.Infrastructure;
 
@@ -10,4 +10,5 @@ public class PetriNetContext : DbContext
     public DbSet<Arc> Arcs { get; set; } = null!;
     public DbSet<Place> Places { get; set; } = null!;
     public DbSet<Transition> Transitions { get; set; } = null!;
+    public DbSet<Token> Tokens { get; set; } = null!;
 }
