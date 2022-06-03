@@ -39,6 +39,14 @@ public class ModelController : ControllerBase
         return CreatedAtAction(nameof(Get), new { id = createdNet.Id }, createdNet);
     }
     
+    [HttpPost("validate-petri-net", Name = "ValidatePetriNet")]
+    [ProducesResponseType(typeof(bool), StatusCodes.Status202Accepted)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public ActionResult<bool>  Validate(PetriNet petriNet)
+    {
+        throw new NotImplementedException();
+    }
+    
     [HttpDelete("{id}", Name = "DeletePetriNet")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
