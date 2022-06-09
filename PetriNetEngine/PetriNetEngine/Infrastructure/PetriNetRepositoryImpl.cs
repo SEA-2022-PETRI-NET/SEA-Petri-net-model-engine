@@ -1,8 +1,6 @@
-using System.Net;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using PetriNetEngine.Domain.Services;
-using SEA_Models.Domain.Model.PetriNet;
+using SEA_Models.PetriNet;
 
 namespace PetriNetEngine.Infrastructure;
 
@@ -17,7 +15,8 @@ public class PetriNetRepositoryImpl : IPetriNetRepository
     public List<PetriNet> GetPetriNets()
     {
         return _petriNetContext.PetriNets
-            .Include(p => p.Places)
+            .Include(p => p.Places)!
+                .ThenInclude(p => p.Tokens)
             .Include(p => p.Transitions)
             .Include(p => p.Arcs)
             .ToList();
@@ -26,7 +25,8 @@ public class PetriNetRepositoryImpl : IPetriNetRepository
     public PetriNet? GetPetriNet(int id)
     {
         return _petriNetContext.PetriNets
-            .Include(p => p.Places)
+            .Include(p => p.Places)!
+                .ThenInclude(p => p.Tokens)
             .Include(p => p.Transitions)
             .Include(p => p.Arcs)
             .FirstOrDefault(p => p.Id == id);
@@ -41,11 +41,7 @@ public class PetriNetRepositoryImpl : IPetriNetRepository
 
     public bool UpdatePetriNet(PetriNet petriNet)
     {
-        var storedPetriNet = _petriNetContext.PetriNets
-            .Include(p => p.Places)
-            .Include(p => p.Transitions)
-            .Include(p => p.Arcs)
-            .FirstOrDefault(p => p.Id == petriNet.Id);
+        var storedPetriNet = GetPetriNet(petriNet.Id);
         if (storedPetriNet == null) return false;
         storedPetriNet.Name = petriNet.Name;
         storedPetriNet.Arcs = petriNet.Arcs;

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using PetriNetEngine.Application;
-using SEA_Models.Domain.Model.PetriNet;
+using SEA_Models.PetriNet;
 
 namespace PetriNetEngine.API;
 
@@ -37,6 +37,14 @@ public class ModelController : ControllerBase
     {
         var createdNet = _modelPetriNetService.CreateNetPetriNet(petriNet);
         return CreatedAtAction(nameof(Get), new { id = createdNet.Id }, createdNet);
+    }
+    
+    [HttpPost("validate-petri-net", Name = "ValidatePetriNet")]
+    [ProducesResponseType(typeof(bool), StatusCodes.Status202Accepted)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public ActionResult<bool>  Validate(PetriNet petriNet)
+    {
+        throw new NotImplementedException();
     }
     
     [HttpDelete("{id}", Name = "DeletePetriNet")]
