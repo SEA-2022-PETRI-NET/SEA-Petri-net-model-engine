@@ -14,7 +14,7 @@ builder.Services.AddControllers(options =>
 
 builder.Services.AddScoped<ValidatePetriNetService, ValidatePetriNetService>();
 builder.Services.AddScoped<SimulatePetriNetService, SimulatePetriNetService>();
-builder.Services.AddScoped<ModelPetriNetService, ModelPetriNetService>();
+builder.Services.AddScoped<IModelPetriNetService, ModelPetriNetService>();
 builder.Services.AddScoped<IPetriNetRepository, PetriNetRepositoryImpl>();
 
 builder.Services.AddDbContext<PetriNetContext>(options => 
