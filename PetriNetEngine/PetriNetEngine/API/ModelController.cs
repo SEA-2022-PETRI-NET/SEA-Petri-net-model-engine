@@ -8,10 +8,10 @@ namespace PetriNetEngine.API;
 [Route("api/v1/[controller]")]
 public class ModelController : ControllerBase
 {
-    private readonly ModelPetriNetService _modelPetriNetService;
+    private readonly IModelPetriNetService _modelPetriNetService;
     private readonly ValidatePetriNetService _validatePetriNetService;
 
-    public ModelController(ModelPetriNetService modelPetriNetService, 
+    public ModelController(IModelPetriNetService modelPetriNetService, 
         ValidatePetriNetService validatePetriNetService)
     {
         _modelPetriNetService = modelPetriNetService;

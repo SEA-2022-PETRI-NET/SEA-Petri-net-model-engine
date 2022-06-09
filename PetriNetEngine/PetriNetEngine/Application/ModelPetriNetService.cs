@@ -3,7 +3,7 @@ using SEA_Models.PetriNet;
 
 namespace PetriNetEngine.Application;
 
-public class ModelPetriNetService
+public class ModelPetriNetService : IModelPetriNetService
 {
     private readonly IPetriNetRepository _repository;
     private readonly ValidatePetriNetService _validatePetriNetService;
