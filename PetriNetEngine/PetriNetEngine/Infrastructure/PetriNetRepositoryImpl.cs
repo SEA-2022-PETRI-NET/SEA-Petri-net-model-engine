@@ -39,16 +39,16 @@ public class PetriNetRepositoryImpl : IPetriNetRepository
         return storedPetriNet.Entity;
     }
 
-    public bool UpdatePetriNet(PetriNet petriNet)
+    public PetriNet? UpdatePetriNet(PetriNet petriNet)
     {
         var storedPetriNet = GetPetriNet(petriNet.Id);
-        if (storedPetriNet == null) return false;
+        if (storedPetriNet == null) return null;
         storedPetriNet.Name = petriNet.Name;
         storedPetriNet.Arcs = petriNet.Arcs;
         storedPetriNet.Transitions = petriNet.Transitions;
         storedPetriNet.Places = petriNet.Places;
         _petriNetContext.SaveChanges();
-        return true;
+        return storedPetriNet;
     }
 
     public bool Delete(int id)

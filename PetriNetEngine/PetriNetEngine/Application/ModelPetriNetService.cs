@@ -37,6 +37,19 @@ public class ModelPetriNetService
         return _repository.Save(petriNet);
     }
 
+    public PetriNet? UpdatePetriNet(PetriNet petriNetDto)
+    {
+        var petriNet = new PetriNet
+        {
+            Name = petriNetDto.Name,
+            Arcs = petriNetDto.Arcs,
+            Places = petriNetDto.Places,
+            Transitions = petriNetDto.Transitions,
+        };
+        _validatePetriNetService.Validate(petriNet);
+        return _repository.UpdatePetriNet(petriNet);
+    }
+
     public bool DeletePetriNet(int id)
     {
         return _repository.Delete(id);

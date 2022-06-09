@@ -9,10 +9,13 @@ namespace PetriNetEngine.API;
 public class ModelController : ControllerBase
 {
     private readonly ModelPetriNetService _modelPetriNetService;
+    private readonly ValidatePetriNetService _validatePetriNetService;
 
-    public ModelController(ModelPetriNetService modelPetriNetService)
+    public ModelController(ModelPetriNetService modelPetriNetService, 
+        ValidatePetriNetService validatePetriNetService)
     {
         _modelPetriNetService = modelPetriNetService;
+        _validatePetriNetService = validatePetriNetService;
     }
     
     [HttpGet( Name = "GetAllPetriNets")]
@@ -39,12 +42,27 @@ public class ModelController : ControllerBase
         return CreatedAtAction(nameof(Get), new { id = createdNet.Id }, createdNet);
     }
     
-    [HttpPost("validate-petri-net", Name = "ValidatePetriNet")]
-    [ProducesResponseType(typeof(bool), StatusCodes.Status202Accepted)]
+    [HttpPut("update-petri-net", Name = "UpdatePetriNet")]
+    [ProducesResponseType(typeof(PetriNet), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public ActionResult<bool>  Validate(PetriNet petriNet)
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public IActionResult Update(PetriNet petriNet)
     {
-        throw new NotImplementedException();
+        var createdNet = _modelPetriNetService.UpdatePetriNet(petriNet);
+        if (createdNet == null)
+        {
+            return NotFound();
+        }
+        return Ok(createdNet);
+    }
+    
+    [HttpPost("validate-petri-net", Name = "ValidatePetriNet")]
+    [ProducesResponseType(StatusCodes.Status202Accepted)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public IActionResult Validate(PetriNet petriNet)
+    {
+        _validatePetriNetService.Validate(petriNet);
+        return Accepted();
     }
     
     [HttpDelete("{id}", Name = "DeletePetriNet")]
