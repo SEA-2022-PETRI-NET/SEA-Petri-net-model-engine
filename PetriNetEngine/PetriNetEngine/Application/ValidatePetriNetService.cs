@@ -2,7 +2,7 @@ using SEA_Models.PetriNet;
 
 namespace PetriNetEngine.Application;
 
-public class ValidatePetriNetService
+public class ValidatePetriNetService : IValidatePetriNetService
 {
     public void Validate(PetriNet petriNet)
     {

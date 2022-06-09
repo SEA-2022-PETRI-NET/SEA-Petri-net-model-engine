@@ -6,9 +6,9 @@ namespace PetriNetEngine.Application;
 public class ModelPetriNetService : IModelPetriNetService
 {
     private readonly IPetriNetRepository _repository;
-    private readonly ValidatePetriNetService _validatePetriNetService;
+    private readonly IValidatePetriNetService _validatePetriNetService;
     
-    public ModelPetriNetService(IPetriNetRepository petriNetRepository, ValidatePetriNetService validatePetriNetService)
+    public ModelPetriNetService(IPetriNetRepository petriNetRepository, IValidatePetriNetService validatePetriNetService)
     {
         _repository = petriNetRepository;
         _validatePetriNetService = validatePetriNetService;

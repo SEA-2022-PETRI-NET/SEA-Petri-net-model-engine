@@ -22,7 +22,8 @@ public class ModelControllerTest
     {
         //Given
         var mock = new Mock<IModelPetriNetService>();
-        ModelController mc = new ModelController(mock.Object);
+        var mock2 = new Mock<IValidatePetriNetService>();
+        ModelController mc = new ModelController(mock.Object, mock2.Object);
         //When
         var res = mc.GetAll();
         //Then
