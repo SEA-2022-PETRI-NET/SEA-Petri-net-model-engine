@@ -1,14 +1,14 @@
 using PetriNetEngine.Domain.Services;
-using SEA_Models.Domain.Model.PetriNet;
+using SEA_Models.PetriNet;
 
 namespace PetriNetEngine.Application;
 
-public class ModelPetriNetService
+public class ModelPetriNetService : IModelPetriNetService
 {
     private readonly IPetriNetRepository _repository;
-    private readonly ValidatePetriNetService _validatePetriNetService;
+    private readonly IValidatePetriNetService _validatePetriNetService;
     
-    public ModelPetriNetService(IPetriNetRepository petriNetRepository, ValidatePetriNetService validatePetriNetService)
+    public ModelPetriNetService(IPetriNetRepository petriNetRepository, IValidatePetriNetService validatePetriNetService)
     {
         _repository = petriNetRepository;
         _validatePetriNetService = validatePetriNetService;
@@ -35,6 +35,19 @@ public class ModelPetriNetService
         };
         _validatePetriNetService.Validate(petriNet);
         return _repository.Save(petriNet);
+    }
+
+    public PetriNet? UpdatePetriNet(PetriNet petriNetDto)
+    {
+        var petriNet = new PetriNet
+        {
+            Name = petriNetDto.Name,
+            Arcs = petriNetDto.Arcs,
+            Places = petriNetDto.Places,
+            Transitions = petriNetDto.Transitions,
+        };
+        _validatePetriNetService.Validate(petriNet);
+        return _repository.UpdatePetriNet(petriNet);
     }
 
     public bool DeletePetriNet(int id)

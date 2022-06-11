@@ -1,4 +1,4 @@
-using SEA_Models.Domain.Model.PetriNet;
+using SEA_Models.PetriNet;
 
 namespace PetriNetEngine.Domain.Services;
 
@@ -12,5 +12,5 @@ public interface IPetriNetRepository
 
     bool Delete(int id);
 
-    bool UpdatePetriNet(PetriNet petriNet);
+    PetriNet? UpdatePetriNet(PetriNet petriNet);
 }

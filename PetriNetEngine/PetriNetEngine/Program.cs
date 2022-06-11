@@ -12,9 +12,9 @@ builder.Services.AddControllers(options =>
     options.Filters.Add<HttpResponseExceptionFilter>();
 });
 
-builder.Services.AddScoped<ValidatePetriNetService, ValidatePetriNetService>();
+builder.Services.AddScoped<IValidatePetriNetService, ValidatePetriNetService>();
 builder.Services.AddScoped<SimulatePetriNetService, SimulatePetriNetService>();
-builder.Services.AddScoped<ModelPetriNetService, ModelPetriNetService>();
+builder.Services.AddScoped<IModelPetriNetService, ModelPetriNetService>();
 builder.Services.AddScoped<IPetriNetRepository, PetriNetRepositoryImpl>();
 
 builder.Services.AddDbContext<PetriNetContext>(options => 
@@ -35,6 +35,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod()
+    .AllowAnyOrigin());
 
 app.UseAuthorization();
 

@@ -1,4 +1,4 @@
-using SEA_Models.Domain.Model.PetriNet;
+using SEA_Models.PetriNet;
 using PetriNetEngine.Domain.Services;
 
 namespace PetriNetEngine.Application;
@@ -82,7 +82,7 @@ public class SimulatePetriNetService
             }
         });
 
-        if (!_repository.UpdatePetriNet(petriNet))
+        if (_repository.UpdatePetriNet(petriNet) == null)
         {
             throw new BadHttpRequestException("Invalid petri net id");
         }

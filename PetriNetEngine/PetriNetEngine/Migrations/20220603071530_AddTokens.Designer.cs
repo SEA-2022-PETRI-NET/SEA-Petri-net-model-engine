@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PetriNetEngine.Infrastructure;
@@ -11,9 +12,10 @@ using PetriNetEngine.Infrastructure;
 namespace PetriNetEngine.Migrations
 {
     [DbContext(typeof(PetriNetContext))]
-    partial class PetriNetContextModelSnapshot : ModelSnapshot
+    [Migration("20220603071530_AddTokens")]
+    partial class AddTokens
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,9 +41,6 @@ namespace PetriNetEngine.Migrations
                     b.Property<int>("TargetNode")
                         .HasColumnType("integer");
 
-                    b.Property<int>("Type")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
 
                     b.HasIndex("PetriNetId");
@@ -57,14 +56,8 @@ namespace PetriNetEngine.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("MaxTokenId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Name")
                         .HasColumnType("text");
-
-                    b.Property<int?>("Time")
-                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -94,9 +87,6 @@ namespace PetriNetEngine.Migrations
                     b.Property<bool?>("isUrgent")
                         .HasColumnType("boolean");
 
-                    b.Property<int?>("maxAge")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
 
                     b.HasIndex("PetriNetId");
@@ -111,9 +101,6 @@ namespace PetriNetEngine.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("Age")
-                        .HasColumnType("integer");
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
