@@ -37,7 +37,7 @@ public class ModelPetriNetService : IModelPetriNetService
         return _repository.Save(petriNet);
     }
 
-    public PetriNet? UpdatePetriNet(PetriNet petriNetDto)
+    public PetriNet? UpdatePetriNet(int id, PetriNet petriNetDto)
     {
         var petriNet = new PetriNet
         {
@@ -47,7 +47,7 @@ public class ModelPetriNetService : IModelPetriNetService
             Transitions = petriNetDto.Transitions,
         };
         _validatePetriNetService.Validate(petriNet);
-        return _repository.UpdatePetriNet(petriNet);
+        return _repository.UpdatePetriNet(id, petriNet);
     }
 
     public bool DeletePetriNet(int id)

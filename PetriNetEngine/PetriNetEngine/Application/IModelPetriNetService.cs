@@ -12,7 +12,7 @@ public interface IModelPetriNetService
 
     PetriNet CreateNetPetriNet(PetriNet petriNetDto);
     
-    PetriNet? UpdatePetriNet(PetriNet petriNetDto);
+    PetriNet? UpdatePetriNet(int id, PetriNet petriNetDto);
 
     bool DeletePetriNet(int id);
 }

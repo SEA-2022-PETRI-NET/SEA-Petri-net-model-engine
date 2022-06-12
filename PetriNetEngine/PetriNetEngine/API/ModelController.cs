@@ -42,13 +42,13 @@ public class ModelController : ControllerBase
         return CreatedAtAction(nameof(Get), new { id = createdNet.Id }, createdNet);
     }
     
-    [HttpPut("update-petri-net", Name = "UpdatePetriNet")]
+    [HttpPut("{id}", Name = "UpdatePetriNet")]
     [ProducesResponseType(typeof(PetriNet), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public IActionResult Update(PetriNet petriNet)
+    public IActionResult Update(int id, PetriNet petriNet)
     {
-        var createdNet = _modelPetriNetService.UpdatePetriNet(petriNet);
+        var createdNet = _modelPetriNetService.UpdatePetriNet(id, petriNet);
         if (createdNet == null)
         {
             return NotFound();

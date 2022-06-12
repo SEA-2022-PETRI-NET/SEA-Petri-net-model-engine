@@ -12,5 +12,5 @@ public interface IPetriNetRepository
 
     bool Delete(int id);
 
-    PetriNet? UpdatePetriNet(PetriNet petriNet);
+    PetriNet? UpdatePetriNet(int id, PetriNet petriNet);
 }

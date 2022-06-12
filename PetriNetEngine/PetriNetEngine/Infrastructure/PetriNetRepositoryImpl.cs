@@ -39,9 +39,9 @@ public class PetriNetRepositoryImpl : IPetriNetRepository
         return storedPetriNet.Entity;
     }
 
-    public PetriNet? UpdatePetriNet(PetriNet petriNet)
+    public PetriNet? UpdatePetriNet(int id, PetriNet petriNet)
     {
-        var storedPetriNet = GetPetriNet(petriNet.Id);
+        var storedPetriNet = GetPetriNet(id);
         if (storedPetriNet == null) return null;
         storedPetriNet.Name = petriNet.Name;
         storedPetriNet.Arcs = petriNet.Arcs;
@@ -53,8 +53,11 @@ public class PetriNetRepositoryImpl : IPetriNetRepository
 
     public bool Delete(int id)
     {
-        var petriNet = _petriNetContext.PetriNets.FirstOrDefault(p => p.Id == id);
+        var petriNet = GetPetriNet(id);
         if (petriNet == null) return false;
+        petriNet.Arcs.ForEach(a => _petriNetContext.Arcs.Remove(a));
+        petriNet.Transitions.ForEach(t => _petriNetContext.Transitions.Remove(t));
+        petriNet.Places.ForEach(p => _petriNetContext.Places.Remove(p));
         _petriNetContext.PetriNets.Remove(petriNet);
         _petriNetContext.SaveChanges();
         return true;
