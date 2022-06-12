@@ -263,7 +263,7 @@ public class SimulateTimedPetriNetService
         });
 
         // Checks if it is possible to update the petri net?
-        if (_repository.UpdatePetriNet(petriNet) == null)
+        if (_repository.UpdatePetriNet(petriNetId, petriNet) == null)
         {
             throw new BadHttpRequestException("Invalid petri net id");
         }

@@ -21,11 +21,11 @@ public class SimulatePetriNetService
         }
         
         var enabledTransitionIds = new List<int>();
-        petriNet.Transitions.ForEach(t =>
+        petriNet.Transitions!.ForEach(t =>
         {
             var inputPlacesIds =
-                petriNet.Arcs.Where(a => a.TargetNode == t.TransitionId).Select(a => a.SourceNode).ToList();
-            var inputPlaces = petriNet.Places.Where(p => inputPlacesIds
+                petriNet.Arcs!.Where(a => a.TargetNode == t.TransitionId).Select(a => a.SourceNode).ToList();
+            var inputPlaces = petriNet.Places!.Where(p => inputPlacesIds
                 .Exists(p1 => p1 == p.PlaceId)).ToList();
             
             if (inputPlaces.All(p => p.NumberOfTokens >= 1))
@@ -44,14 +44,14 @@ public class SimulatePetriNetService
             throw new BadHttpRequestException("Invalid petri net id");
         }
 
-        if (!petriNet.Transitions.Exists(t => t.TransitionId == transitionId))
+        if (!petriNet.Transitions!.Exists(t => t.TransitionId == transitionId))
         {
             throw new BadHttpRequestException("Invalid transition id");
         }
 
         var outputPlacesIds = new List<int>();
         var inputPlacesIds = new List<int>();
-        petriNet.Arcs.ForEach(a =>
+        petriNet.Arcs!.ForEach(a =>
         {
             if (a.TargetNode == transitionId)
             {
@@ -64,7 +64,7 @@ public class SimulatePetriNetService
             }
         });
 
-        petriNet.Places.ForEach(p =>
+        petriNet.Places!.ForEach(p =>
         {
             if (inputPlacesIds.Contains(p.PlaceId) && (p.NumberOfTokens == null || p.NumberOfTokens < 1))
             {
@@ -82,7 +82,7 @@ public class SimulatePetriNetService
             }
         });
 
-        if (_repository.UpdatePetriNet(petriNet) == null)
+        if (_repository.UpdatePetriNet(petriNetId, petriNet) == null)
         {
             throw new BadHttpRequestException("Invalid petri net id");
         }
