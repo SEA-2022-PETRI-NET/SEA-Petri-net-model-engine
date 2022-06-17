@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using PetriNetEngine.Application;
+using SEA_Models.PetriNet;
 
 namespace PetriNetEngine.API;
 
@@ -16,7 +17,7 @@ public class SimulationController : ControllerBase
     
     [HttpGet( "{petriNetId}", Name = "GetEnabledTransitions")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(List<int>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(List<Transition>), StatusCodes.Status200OK)]
     public IActionResult GetEnabledTransitions(int petriNetId)
     {
         var transitions = _simulatePetriNetService.GetEnabledTransitions(petriNetId);
