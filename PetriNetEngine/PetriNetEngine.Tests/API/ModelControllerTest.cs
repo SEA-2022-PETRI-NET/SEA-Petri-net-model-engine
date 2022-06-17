@@ -52,20 +52,23 @@ public class ModelControllerTest
         var mockRepository = new Mock<IPetriNetRepository>();
         var mockModel = new Mock<IModelPetriNetService>();
         var mockValidate = new Mock<IValidatePetriNetService>();
-        ModelController mc = new ModelController(mockModel.Object, mockValidate.Object);
-        Arc a = new Arc
+        var mc = new ModelController(mockModel.Object, mockValidate.Object);
+        var a = new Arc
         {
+            PetriNetId = 1,
             SourceNode = 0,
             TargetNode = 1,
             Type = ArcType.Normal
         };
-        Transition t = new Transition
+        var t = new Transition
         {
+            PetriNetId = 1,
             TransitionId = 0,
             Name = "0"
         };
-        Place p1 = new Place
+        var p1 = new Place
         {
+            PetriNetId = 1,
             PlaceId = 1,
             Name = "Place",
             maxAge = 0,
@@ -75,6 +78,7 @@ public class ModelControllerTest
             {
                 new Token
                 {
+                    PetriNetId = 1,
                     Id = 0,
                     TokenId = 0,
                     Age = 0,
@@ -83,8 +87,7 @@ public class ModelControllerTest
             }
         };
 
-
-        PetriNet p = new PetriNet
+        var p = new PetriNet
         {
             Places = new List<Place>()
             {
@@ -103,18 +106,163 @@ public class ModelControllerTest
             MaxTokenId = 299999999,
             Time = 10000
         };
-        _testOutputHelper.WriteLine(p.ToString());
-        _testOutputHelper.WriteLine(p.Arcs.ToString());
-        _testOutputHelper.WriteLine(p.Arcs[0].ToString());
-        _testOutputHelper.WriteLine(p.Transitions.ToString());
-        _testOutputHelper.WriteLine(p.Transitions[0].ToString());
-        _testOutputHelper.WriteLine(p.Places.ToString());
-        _testOutputHelper.WriteLine(p.Places[0].ToString());
+        mockModel.Setup(x => x.CreateNetPetriNet(p)).Returns(p);
+        
         //When
         var res = mc.Create(p);
+        _testOutputHelper.WriteLine(res.ToString());
+
         //Then
         mockModel.Verify(x=>x.CreateNetPetriNet(p),Times.Once());
     }
+    
+    [Fact]
+    public void Update()
+    {
+        //Given
+        var mockModel = new Mock<IModelPetriNetService>();
+        var mockValidate = new Mock<IValidatePetriNetService>();
+        var mc = new ModelController(mockModel.Object, mockValidate.Object);
+        var a = new Arc
+        {
+            PetriNetId = 1,
+            SourceNode = 0,
+            TargetNode = 1,
+            Type = ArcType.Normal
+        };
+        var t = new Transition
+        {
+            PetriNetId = 1,
+            TransitionId = 0,
+            Name = "0"
+        };
+        var p1 = new Place
+        {
+            PetriNetId = 1,
+            PlaceId = 1,
+            Name = "Place",
+            maxAge = 0,
+            isUrgent = false,
+            NumberOfTokens = 10000,
+            Tokens = new List<Token>()
+            {
+                new Token
+                {
+                    PetriNetId = 1,
+                    Id = 0,
+                    TokenId = 0,
+                    Age = 0,
+                    Name = "S"
+                }
+            }
+        };
+
+        var p = new PetriNet
+        {
+            Places = new List<Place>()
+            {
+                p1
+            },
+            Arcs = new List<Arc>()
+            {
+                a
+            },
+            Transitions = new List<Transition>()
+            {
+                t
+            },
+            Id = 1,
+            Name = "hej",
+            MaxTokenId = 299999999,
+            Time = 10000
+        };
+        var res = mc.Update(1, p);
+        //Then
+        mockModel.Verify(x=>x.UpdatePetriNet(1,p),Times.Once());
+    }
+    
+    
+    [Fact]
+    public void Validate()
+    {
+        //Given
+        var mockModel = new Mock<IModelPetriNetService>();
+        var mockValidate = new Mock<IValidatePetriNetService>();
+        var mc = new ModelController(mockModel.Object, mockValidate.Object);
+        var a = new Arc
+        {
+            PetriNetId = 1,
+            SourceNode = 0,
+            TargetNode = 1,
+            Type = ArcType.Normal
+        };
+        var t = new Transition
+        {
+            PetriNetId = 1,
+            TransitionId = 0,
+            Name = "0"
+        };
+        var p1 = new Place
+        {
+            PetriNetId = 1,
+            PlaceId = 1,
+            Name = "Place",
+            maxAge = 0,
+            isUrgent = false,
+            NumberOfTokens = 10000,
+            Tokens = new List<Token>()
+            {
+                new Token
+                {
+                    PetriNetId = 1,
+                    Id = 0,
+                    TokenId = 0,
+                    Age = 0,
+                    Name = "S"
+                }
+            }
+        };
+
+        var p = new PetriNet
+        {
+            Places = new List<Place>()
+            {
+                p1
+            },
+            Arcs = new List<Arc>()
+            {
+                a
+            },
+            Transitions = new List<Transition>()
+            {
+                t
+            },
+            Id = 1,
+            Name = "hej",
+            MaxTokenId = 299999999,
+            Time = 10000
+        };
+        var res = mc.Validate(p);
+        //Then
+        mockValidate.Verify(x=>x.Validate(p),Times.Once());
+    }
+    
+    [Fact]
+    public void Delete()
+    {
+        //Given
+        var mockModel = new Mock<IModelPetriNetService>();
+        var mockValidate = new Mock<IValidatePetriNetService>();
+        var mc = new ModelController(mockModel.Object, mockValidate.Object);
+        //When
+        var res = mc.Delete(1);
+        //Then
+        mockModel.Verify(x=>x.DeletePetriNet(1),Times.Once());
+    }
+
+    
+    
+    
 
 
 
