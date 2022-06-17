@@ -12,7 +12,7 @@ public class SimulatePetriNetService
         _repository = petriNetRepository;
     }
 
-    public List<int> GetEnabledTransitions(int petriNetId)
+    public List<Transition> GetEnabledTransitions(int petriNetId)
     {
         var petriNet = _repository.GetPetriNet(petriNetId);
         if (petriNet == null)
@@ -20,7 +20,7 @@ public class SimulatePetriNetService
             throw new BadHttpRequestException("Invalid petri net id");
         }
         
-        var enabledTransitionIds = new List<int>();
+        var enabledTransitionIds = new List<Transition>();
         petriNet.Transitions!.ForEach(t =>
         {
             var inputPlacesIds =
@@ -30,7 +30,7 @@ public class SimulatePetriNetService
             
             if (inputPlaces.All(p => p.NumberOfTokens >= 1))
             {
-                enabledTransitionIds.Add(t.TransitionId);
+                enabledTransitionIds.Add(t);
             }
         });
         return enabledTransitionIds;
