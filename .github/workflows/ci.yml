@@ -1,20 +1,48 @@
 name: CI
 
-on: [push]
+on: [push, workflow_dispatch]
 
 jobs:
   build:
 
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
 
     steps:
+    - name: Setup SSH
+      uses: webfactory/ssh-agent@v0.7.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      
     - name: Checkout repo
       uses: actions/checkout@v1
+      with:
+        submodules: recursive
+        
+    - name: Start PostgreSQL on Ubuntu
+      run: |
+        sudo systemctl start postgresql.service
+        pg_isready
+    
+    - name: Change password
+      run: |
+        sudo su - postgres -c "psql --echo-all -U postgres -d postgres --command \"alter user postgres with password 'Pass2020!';\""
+    
+    - name: Refresh PostgreSQL
+      run: |
+        sudo service postgresql restart
 
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@v2.0.0
       with:
         dotnet-version: '6.x.x'
+    
+    - name: Update database
+      run: |
+        cd PetriNetEngine/PetriNetEngine
+        dotnet tool install --global dotnet-ef
+        dotnet tool restore
+        dotnet ef migrations add InitialCreate
+        dotnet ef database update
 
     - name: Build the app
       run: |
